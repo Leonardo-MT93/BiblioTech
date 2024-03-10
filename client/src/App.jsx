@@ -1,15 +1,16 @@
+import { BrowserRouter } from "react-router-dom"
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
-import HomePage from "./pages/HomePage"
+import AppRouter from "./routes/AppRouter"
 
 function App() {
 
   return (
-    <>
+    <BrowserRouter>
       <Navbar/>
-      <HomePage/>
+      <AppRouter/>
       <Footer/>
-    </>
+    </BrowserRouter>
   )
 }
 
