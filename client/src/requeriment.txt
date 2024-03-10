@@ -1,0 +1,47 @@
+Prueba Técnica para Desarrollador Junior Fullstack
+Introducción
+
+Tu tarea es construir una aplicación CRUD para una librería. La aplicación debe permitir a los usuarios realizar las siguientes operaciones:
+
+    Crear un nuevo libro: Los usuarios deben poder ingresar la información del libro (título, autor, año de publicación y género) y guardarla en la base de datos.
+    Leer la información de los libros: Los usuarios deben poder ver una lista de todos los libros en la librería, así como detalles específicos de cada libro.
+    Actualizar la información de los libros: Los usuarios deben poder modificar la información de un libro existente.
+    Eliminar libros: Los usuarios deben poder eliminar un libro de la librería.
+    Guardar en favoritos: Los usuarios deben poder marcar un libro como favorito. Esta acción debe cambiar el estado del libro a "favorito" en la base de datos.
+    Ver libros favoritos: Los usuarios deben poder ver una lista de todos los libros que han marcado como favoritos en una página separada.
+
+Por favor, asegúrate de que tu aplicación cumple con todos los requisitos mencionados en las secciones de "Frontend" y "Backend" de este documento. Además, recuerda seguir las instrucciones para subir tu solución a GitHub y proporcionar el enlace del repositorio en tu perfil de la plataforma.
+Consideraciones previas
+
+En Middas utilizamos Nextjs 14 con server actions y RSC, con tailwind css para los estilos, se valorará positivamente si utilizas estas tecnologías, pero no es un requisito. De realizarlo de esta manera, no necesitar tener separado el frontend del backend en proyectos diferentes. De lo contrario, en un mismo proyecto, tener una carpeta para el frontend y otra para el backend.
+
+Se construirá una aplicación CRUD que permita a los usuarios realizar las operaciones de Crear, Leer, Actualizar y Eliminar registros.
+Requisitos
+
+Frontend:
+
+    Puedes elegir libremente cómo resolverlo usando React con Vite, o con otro framework de React como Next.js o Remix.
+    Se valorará crear componentes reutilizables y una interfaz de usuario intuitiva.
+    Los estilos pueden ser con tailwind css o con otro framework de css, así como con css plano.
+
+Backend:
+
+    Utiliza Express.js para construir una API RESTful.
+    Implementa una arquitectura MVC (Modelo, Vista, Controlador).
+    Conecta la API con una base de datos MongoDB.
+    Implementa las rutas y controladores necesarios para las operaciones CRUD.
+
+Instrucciones
+
+    Crea un respositorio para subir tu solución a esta prueba técnica.
+    Desarrolla la aplicación CRUD siguiendo los requisitos mencionados anteriormente.
+    Realiza commits periódicos de tus cambios con mensajes descriptivos. Esto nos ayudará a entender tu proceso de desarrollo y tus decisiones técnicas, así como a revisar tu código de manera más efectiva.
+    No es necesario desplegar la aplicación. Simplemente sube tu solución a GitHub y proporciona el enlace del repositorio en tu perfil de la plataforma.
+
+Consideraciones Adicionales
+
+    Presta atención a las buenas prácticas de programación, como la modularidad, la legibilidad y el mantenimiento del código.
+    Asegúrate de que tu aplicación esté bien documentada y tenga instrucciones claras para ejecutarla localmente.
+    Siente la libertad de agregar funcionalidades adicionales si lo deseas, siempre y cuando se cumplan los requisitos principales.
+    Concéntrate en la calidad del código y la implementación correcta de las operaciones CRUD.
+    Se valorará la atención al crear commits, el contenido de los mismos, no realizar demasiadas modificaciones en un mismo commit, y el uso de mensajes descriptivos.
