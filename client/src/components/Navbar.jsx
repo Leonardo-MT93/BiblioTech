@@ -2,6 +2,9 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 const Navbar = () => {
+
+  
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -51,8 +54,11 @@ const Navbar = () => {
                 </NavLink>
               </li>
             </ul>
-            <NavLink className="hidden md:flex items-center space-x-5" to='/donations'>
+            <NavLink className="hidden md:flex items-center space-x-5 px-4" to='/login'>
               <button>Iniciar Sesión</button>
+            </NavLink>
+            <NavLink className="hidden md:flex items-center space-x-5 px-4" to='/register'>
+              <button>Registrarse</button>
             </NavLink>
             <button
             className=" flex-col justify-center items-center md:hidden pr-4"

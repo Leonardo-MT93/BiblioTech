@@ -1,0 +1,42 @@
+export const mybooks = [
+  {
+    id: 11,
+    title: "The Mythical Man-Month: Essays on Software Engineering",
+    author: "Frederick P. Brooks Jr.",
+    year: 1975,
+    genre: "Software Development",
+    bookUserId: 1,
+  },
+  {
+    id: 12,
+    title: "The Design of Everyday Things",
+    author: "Don Norman",
+    year: 1988,
+    genre: "Design",
+    bookUserId: 1,
+  },
+  {
+    id: 13,
+    title: "Zero to One: Notes on Startups, or How to Build the Future",
+    author: "Peter Thiel with Blake Masters",
+    year: 2014,
+    genre: "Business",
+    bookUserId: 1,
+  },
+  {
+    id: 14,
+    title: "The Alchemist",
+    author: "Paulo Coelho",
+    year: 1988,
+    genre: "Fiction",
+    bookUserId: 1,
+  },
+  {
+    id: 15,
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    year: 1925,
+    genre: "Classic Literature",
+    bookUserId: 1,
+  },
+];

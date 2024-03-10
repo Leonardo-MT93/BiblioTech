@@ -4,7 +4,8 @@ export const books =[
         title: "The Pragmatic Programmer",
         author: "Andrew Hunt and David Thomas",
         year: 1999,
-        genre: "Software Development",
+        genre: "Software Development",   
+        bookUserId: 10,
     },
     {
         id: 2,
@@ -12,6 +13,7 @@ export const books =[
         author: "Robert C. Martin",
         year: 2008,
         genre: "Software Development",
+        bookUserId: 10,
     },
     {
         id: 3,
@@ -19,6 +21,7 @@ export const books =[
         author: "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
         year: 1994,
         genre: "Software Development",
+        bookUserId: 10,
     },
     {
         id: 4,
@@ -26,6 +29,7 @@ export const books =[
         author: "Eric Ries",
         year: 2011,
         genre: "Business",
+        bookUserId: 10,
     },
     {
         id: 5,
@@ -33,6 +37,7 @@ export const books =[
         author: "Daniel Kahneman",
         year: 2011,
         genre: "Psychology",
+        bookUserId: 10,
     },
     {
         id: 6,
@@ -40,6 +45,7 @@ export const books =[
         author: "Yuval Noah Harari",
         year: 2011,
         genre: "History",
+        bookUserId: 10,
     },
     {
         id: 7,
@@ -47,6 +53,7 @@ export const books =[
         author: "Sun Tzu",
         year: "5th century BC",
         genre: "Military Strategy",
+        bookUserId: 10,
     },
     {
         id: 8,
@@ -54,6 +61,7 @@ export const books =[
         author: "Douglas Adams",
         year: 1979,
         genre: "Science Fiction",
+        bookUserId: 10,
     },
     {
         id: 9,
@@ -61,6 +69,7 @@ export const books =[
         author: "George Orwell",
         year: 1949,
         genre: "Dystopian Fiction",
+        bookUserId: 10,
     },
     {
         id: 10,
@@ -68,5 +77,6 @@ export const books =[
         author: "Harper Lee",
         year: 1960,
         genre: "Classic Literature",
+        bookUserId: 10,
     },
 ]
