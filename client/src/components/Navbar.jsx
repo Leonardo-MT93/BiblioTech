@@ -14,10 +14,10 @@ const Navbar = () => {
   return (
     <div className="flex  flex-wrap place-items-center h-24">
       <section className="flex relative mx-auto w-full h-24 ">
-        <nav className="flex justify-between border border-b-pink-400   text-black w-full ">
+        <nav className="flex justify-between border border-b-blue-400   text-black w-full ">
           <div className="px-5 xl:px-12 py-6 flex w-full items-center justify-between">
             <NavLink
-              className=" h-24 flex items-center justify-center border border-red-400"
+              className=" h-24 flex items-center justify-center "
               to="/"
             >
               <img className="h-20 flex items-center" src="" alt="BIBLIOTECH" />
