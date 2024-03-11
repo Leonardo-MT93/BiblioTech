@@ -1,9 +1,7 @@
-const express = require('express');
-const app = express();
+require('dotenv').config();
 
+const Server = require('./models/server');
 
+const server = new Server();
 
-const PORT = 9000;
-app.listen(PORT, () => {
-  console.log(`Servidor iniciado en http://localhost:${PORT}`);
-});
+server.listen();
