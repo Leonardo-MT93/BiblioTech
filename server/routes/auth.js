@@ -1,4 +1,4 @@
-const { Router } = require("express");
+import { Router } from "express";
 
 
 
@@ -12,4 +12,4 @@ router.get('/', (req, res) => {
 })
 
 
-module.exports = router;
+export default router;

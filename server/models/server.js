@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const { dbConnection } = require('../database/config');
-
+import express, { json } from 'express';
+import cors from 'cors';
+import { dbConnection } from '../database/config.js';
+import AuthRoutes from '../routes/auth.js'
 
 class Server {
 
@@ -23,11 +23,11 @@ class Server {
 
     middlewares(){
         this.app.use(cors());
-        this.app.use(express.json());
+        this.app.use(json());
     }
 
     routes(){
-        this.app.use(this.paths.auth, require('../routes/auth'));
+        this.app.use(this.paths.auth, AuthRoutes);
     }
 
     listen(){
@@ -38,4 +38,4 @@ class Server {
 }
 
 
-module.exports = Server;
+export default Server;

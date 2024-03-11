@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+import { connect } from 'mongoose';
 
 const dbConnection = async() => {
 
     try {
-        await mongoose.connect(process.env.MONGODB_ATLAS);
+        await connect(process.env.MONGODB_ATLAS);
 
         console.log('Base de datos online');
     } catch (error) {
@@ -12,6 +12,6 @@ const dbConnection = async() => {
     }
 }
 
-module.exports = {
+export {
     dbConnection
 }
