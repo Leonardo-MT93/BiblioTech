@@ -4,12 +4,13 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.post('/login', (req, res) => {
     res.json({
-        msg: 'get API',
+        msg: 'post API - login',
         ok: true
     })
 })
+
 
 
 export default router;
