@@ -1,15 +1,17 @@
 import { Router } from "express";
+import { check } from "express-validator";
+import { validateFields } from "../middlewares/validate-fields.js";
+import { login } from "../controllers/auth.js";
 
 
 
 const router = Router();
 
-router.post('/login', (req, res) => {
-    res.json({
-        msg: 'post API - login',
-        ok: true
-    })
-})
+router.post('/login', [
+    check('email', 'El correo es obligatorio').isEmail(),
+    check('password', 'La contraseña es obligatoria').not().isEmpty(),
+    validateFields
+], login)
 
 
 

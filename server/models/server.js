@@ -3,6 +3,7 @@ import cors from 'cors';
 import { dbConnection } from '../database/config.js';
 import AuthRoutes from '../routes/auth.js'
 import UserRoutes from '../routes/user.js';
+import BookRoutes from '../routes/book.js';
 
 class Server {
 
@@ -11,7 +12,8 @@ class Server {
         this.port = process.env.PORT;
         this.paths = {
             auth: '/api/auth', 
-            user: '/api/user'
+            user: '/api/user',
+            book: '/api/book',
         }
         
         this.conectarDB();
@@ -30,7 +32,8 @@ class Server {
 
     routes(){
         this.app.use(this.paths.auth, AuthRoutes);
-        this.app.use(this.paths.user, UserRoutes)
+        this.app.use(this.paths.user, UserRoutes);
+        this.app.use(this.paths.book, BookRoutes);
     }
 
     listen(){
