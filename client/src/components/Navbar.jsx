@@ -1,15 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../auth/context/AuthContext";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
-  console.log('Navbar', user)
-  const {id} = user;
+  const { user, logout } = useContext(AuthContext);
+  const { id } = user ? user : "";
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    logout(false);
+    navigate("/");
   };
 
   return (
@@ -24,29 +29,31 @@ const Navbar = () => {
               <li>
                 <NavLink
                   className="hover:border-b-2 hover:border-black md:text-sm lg:text-lg"
-                  to={`${id}/mybooks`}
-                >
-                  Mis Libros
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="hover:border-b-2 hover:border-black md:text-sm lg:text-lg"
                   to="/books"
                 >
                   Listado de libros
                 </NavLink>
               </li>
-              {/* SI INICIA SESION  */}
+
               {user && (
-                <li>
-                  <NavLink
-                    className="hover:border-b-2 hover:border-black md:text-sm lg:text-lg"
-                    to="/create"
-                  >
-                    Crear libro
-                  </NavLink>
-                </li>
+                <>
+                  <li>
+                    <NavLink
+                      className="hover:border-b-2 hover:border-black md:text-sm lg:text-lg"
+                      to={`${id}/mybooks`}
+                    >
+                      Mis Libros
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="hover:border-b-2 hover:border-black md:text-sm lg:text-lg"
+                      to="/create"
+                    >
+                      Crear libro
+                    </NavLink>
+                  </li>
+                </>
               )}
               <li>
                 <NavLink
@@ -73,26 +80,58 @@ const Navbar = () => {
                 </NavLink>
               </>
             )}
-            <button
-              className=" flex-col justify-center items-center md:hidden pr-4"
-              onClick={handleClick}
-            >
-              <span
-                className={`bg-black block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm  ${
-                  isOpen ? "rotate-45 translate-y-1" : "-translate-y-0.5"
-                }`}
-              ></span>
-              <span
-                className={`bg-black block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${
-                  isOpen ? "opacity-0" : "opacity-100"
-                }`}
-              ></span>
-              <span
-                className={`bg-black block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${
-                  isOpen ? "-rotate-45 -translate-y-1" : "translate-y-0.5"
-                }`}
-              ></span>
-            </button>
+            {user && (
+              <>
+                <div className="flex items-center">
+                  <div className="relative">
+                    <button
+                      type="button"
+                      className="w-56 inline-flex justify-center  rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white  hover:text-gray-300"
+                      id="menu-button"
+                      aria-expanded="true"
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                    >
+                      {user.email}
+                      <svg
+                        className="-mr-1 h-5 w-5 text-gray-400"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    {isOpen && (
+                      <div
+                        className="w-full absolute right-0 z-10 origin-top-right rounded-md bg-blue-800 text-white focus:outline-none"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="menu-button"
+                        tabIndex="-1"
+                      >
+                        <div className="py-1" role="none">
+                          <button
+                            type="submit"
+                            className=" block w-full px-4 py-2 text-center text-sm"
+                            role="menuitem"
+                            tabIndex="-1"
+                            id="menu-item-3"
+                            onClick={handleLogout}
+                          >
+                            Sign out
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </nav>
       </section>

@@ -1,135 +1,211 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
-import { mybooks } from "../constants/mybooks";
-import { useParams } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditBookPage = () => {
-
-  const { id } = useParams();
-
-  // Buscar el libro en la lista de libros
-  const [formData, setFormData] = useState({
-    title: "",
-    author: "",
-    genre: "",
-    year: "",
-  });
+  const {id} = useParams();
+  const {getBookForId, updateBook} = useFetch();
+  const [book, setBook] = useState({});
+  const [formEnviado, setFormEnviado] = useState(false);
+  const [formError, setFormError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const bookData = mybooks.find((book) => book.id === Number(id));
-    if (bookData) {
-      setFormData({
-        title: bookData.title,
-        author: bookData.author,
-        genre: bookData.genre,
-        year: bookData.year.toString(),
-      });
-    }
+    const fetchBook = async () => {
+      const fetchedBook = await getBookForId(id);
+      setBook(fetchedBook);
+    };
+    fetchBook();
   }, [id]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleEditSubmit = (e) => {
-    e.preventDefault();
-    const { title, author, genre, year } = formData;
-    console.log(title, author, genre, year);
-    //Conecto con la base de datos y envio los datos del libro que edite
-  };
-
-  if (!formData.title) {
-    return <div>Libro no encontrado</div>;
-  }
 
   return (
-    <div className="bg-blue-900 rounded-md h-[50vh] flex flex-col items-center justify-around">
-    <h2 className="text-3xl text-white">Edición de un libro</h2>
-    <form className="w-[30vw] mx-auto " onSubmit={handleEditSubmit}>
-      <div className="relative z-0 w-full mb-5 ">
-        <input
-          type="text"
-          name="floating_title"
-          id="floating_title"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-          required
-          value={formData.title}
-            onChange={handleInputChange}
-        />
-        <label
-          htmlFor="floating_title"
-          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
-          Titulo
-        </label>
-      </div>
-      <div className="relative z-0 w-full mb-5 ">
-        <input
-          type="text"
-          name="author"
-          id="author"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-          required
-          value={formData.author}
-            onChange={handleInputChange}
-        />
-        <label
-          htmlFor="author"
-          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
-          Autor
-        </label>
-      </div>
-      <div className="relative z-0 w-full mb-5 ">
-        <input
-          type="text"
-          name="genre"
-          id="floating_genre"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-          required
-          value={formData.genre}
-            onChange={handleInputChange}        />
-        <label
-          htmlFor="floating_genre"
-          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
-         Género
-        </label>
-      </div>
-      <div className="relative z-0 w-full mb-5 ">
-        <input
-          type="text"
-          name="year"
-          id="floating_year"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-          required
-          value={formData.year}
-            onChange={handleInputChange}
-        />
-        <label
-          htmlFor="floating_year"
-          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >
-         Año
-        </label>
-      </div>
+    <Formik
+      initialValues={{
+        title: '',
+        author: '',
+        genre: '',
+        year: '',
+      }}
+      validate={(valores) => {
+        let errores = {};
+        if (!valores.title) {
+          errores.title = "Título inválido. Mín 3 caract.";
+        } else if (!/[a-zA-Z][a-zA-Z ]/.test(valores.title)) {
+          errores.title = "Sólo inserte letras y espacios";
+        }
+        if (!valores.author) {
+          errores.author = "Autor inválido. Mín 3 caract.";
+        } else if (!/[a-zA-Z][a-zA-Z ]/.test(valores.author)) {
+          errores.author = "Sólo inserte letras y espacios";
+        }
+        if (!valores.genre) {
+          errores.genre = "Género inválido. Mín 3 caract.";
+        } else if (!/[a-zA-Z][a-zA-Z ]/.test(valores.genre)) {
+          errores.genre = "Sólo inserte letras y espacios";
+        }
+        if (!valores.year) {
+          errores.year = "Mín 3 caract.";
+        } else if (!/[0-9]/.test(valores.year)) {
+          errores.year = "Sólo inserte números sin espacios";
+        }
 
-      <button
-        type="submit"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Editar
-      </button>
-    </form>
-  </div>
-  )
+        return errores;
+      }}
+      onSubmit={async (valores, { resetForm }) => {
+        try {
+          const result = await updateBook(id, valores);
+          console.log("Result", result);
+          resetForm();
+          setFormError(null);
+          setFormEnviado(true);
+          setTimeout(() => {
+            setFormEnviado(false);
+            navigate("/")
+          }, 2000);
+        } catch (error) {
+          setFormError(error.message);
+        }
+      }}
+    >
+      {({ values, handleBlur }) => (
+        <Form className="flex w-full flex-col items-center px-6 md:px-2 lg:px-10  ">
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="title"
+              >
+                Título:
+              </label>
+              <Field
+                type="text"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="title"
+                name="title"
+                placeholder={book.title}
+                value={values.title}
+                onBlur={handleBlur}
+                
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="title"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="author"
+              >
+                Autor:
+              </label>
+              <Field
+                type="text"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="author"
+                name="author"
+                placeholder={book.author}
+                value={values.author}
+                onBlur={handleBlur}
+                
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="author"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="genre"
+              >
+                Género:
+              </label>
+              <Field
+                type="text"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="genre"
+                name="genre"
+                placeholder={book.genre}
+                value={values.genre}
+                onBlur={handleBlur}
+                
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="genre"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="genre"
+              >
+                Año de publicación:
+              </label>
+              <Field
+                type="number"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="year"
+                name="year"
+                placeholder={book.year}
+                value={values.year}
+                onBlur={handleBlur}
+                
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="year"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[70%] lg:w-[55%] flex items-center justify-center ">
+            <button
+              type="submit"
+              className="mt-1 sm:mt-4 mb-0 sm:mb-2 py-4 bg-blue-600 w-96 rounded-full text-white font-semibold text-base leading-6 "
+            >
+              Editar
+            </button>
+          </div>
+        <div className="w-full h-5 mt-1 sm:mt-0 sm:h-10 flex items-center justify-center ">
+        {formEnviado && (
+            <p className="flex justify-start text-green-500 text-sm ">
+              Libro editado exitosamente!
+            </p>
+          )}
+          {formError && (
+            <p className="flex justify-start text-red-600 text-sm">
+              {formError}
+            </p>
+          )}
+        </div>
+          
+        </Form>
+      )}
+    </Formik>
+  );
 }
 
 export default EditBookPage

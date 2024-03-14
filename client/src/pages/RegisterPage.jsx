@@ -141,7 +141,7 @@ const RegisterPage = () => {
           <div className="w-[70%] lg:w-[55%] flex items-center justify-center ">
             <button
               type="submit"
-              className="mt-1 sm:mt-4 mb-0 sm:mb-2 py-4 bg-avocadoGreen w-96 rounded-full text-white font-semibold text-base leading-6 "
+              className="mt-1 sm:mt-4 mb-0 sm:mb-2 py-4 bg-blue-600 w-96 rounded-full text-white font-semibold text-base leading-6 "
             >
               Registrarse
             </button>

@@ -13,7 +13,6 @@ const BooksListPage = () => {
           throw new Error("Error al obtener los libros");
         }
         const {books} = await response.json();
-        console.log(books)
         setBooks(books);
       } catch (error) {
         console.error("Error fetching books:", error);
