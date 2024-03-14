@@ -24,7 +24,8 @@ const useLogin = () => {
         }
         if(response.ok){
             const {user} = responseData;
-            login(user._id, user.name, user.email);
+            const {token} = responseData;
+            login(user._id, user.name, user.email, token);
         }
         return responseData;
       } catch (error) {

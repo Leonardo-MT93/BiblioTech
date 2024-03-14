@@ -15,11 +15,12 @@ export const AuthProvider = ({children}) => {
 
      const [authState, dispatch] = useReducer(authReducer, {}, init);
 
-     const login = (id = "", name = "", email = "") => {
+     const login = (id = "", name = "", email = "", token="") => {
         const user = {
             id,
             name,
             email,
+            token
         }
 
         const action = {
@@ -39,7 +40,6 @@ export const AuthProvider = ({children}) => {
         };
 
         dispatch(action);
-
      }
 
 

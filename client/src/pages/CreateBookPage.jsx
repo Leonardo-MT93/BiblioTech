@@ -1,96 +1,199 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useState } from "react";
+import useFetch from "../hooks/useFetch";
+
 
 const CreateBookPage = () => {
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const title = e.target.floating_title.value
-    const author = e.target.author.value
-    const genre = e.target.floating_genre.value
-    const year = e.target.floating_year.value
-    console.log(title, author, genre, year)
-  }
-
-  
-
+  const {createBook} = useFetch()
+  const [formEnviado, setFormEnviado] = useState(false);
+  const [formError, setFormError] = useState(null);
   return (
-    <div className="bg-blue-900 rounded-md h-[50vh] flex flex-col items-center justify-around">
-      <h2 className="text-3xl text-white">Creación de un libro</h2>
-          
-      <form className="w-[30vw] mx-auto " onSubmit={handleSubmit}>
-        <div className="relative z-0 w-full mb-5 ">
-          <input
-            type="text"
-            name="floating_title"
-            id="floating_title"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label
-            htmlFor="floating_title"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Titulo
-          </label>
-        </div>
-        <div className="relative z-0 w-full mb-5 ">
-          <input
-            type="text"
-            name="author"
-            id="author"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label
-            htmlFor="author"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Autor
-          </label>
-        </div>
-        <div className="relative z-0 w-full mb-5 ">
-          <input
-            type="text"
-            name="genre"
-            id="floating_genre"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label
-            htmlFor="floating_genre"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-           Género
-          </label>
-        </div>
-        <div className="relative z-0 w-full mb-5 ">
-          <input
-            type="text"
-            name="year"
-            id="floating_year"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label
-            htmlFor="floating_year"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-           Año
-          </label>
-        </div>
+    <Formik
+      initialValues={{
+        title: "",
+        author: "",
+        genre: "",
+        year: "",
+      }}
+      validate={(valores) => {
+        let errores = {};
+        if (!valores.title) {
+          errores.title = "Título inválido. Mín 3 caract.";
+        } else if (!/[a-zA-Z][a-zA-Z ]/.test(valores.title)) {
+          errores.title = "Sólo inserte letras y espacios";
+        }
+        if (!valores.author) {
+          errores.author = "Autor inválido. Mín 3 caract.";
+        } else if (!/[a-zA-Z][a-zA-Z ]/.test(valores.author)) {
+          errores.author = "Sólo inserte letras y espacios";
+        }
+        if (!valores.genre) {
+          errores.genre = "Género inválido. Mín 3 caract.";
+        } else if (!/[a-zA-Z][a-zA-Z ]/.test(valores.genre)) {
+          errores.genre = "Sólo inserte letras y espacios";
+        }
+        if (!valores.year) {
+          errores.year = "Mín 3 caract.";
+        } else if (!/[0-9]/.test(valores.year)) {
+          errores.year = "Sólo inserte números sin espacios";
+        }
 
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Publicar
-        </button>
-      </form>
-    </div>
-  )
+        return errores;
+      }}
+      onSubmit={async (valores, { resetForm }) => {
+        try {
+          const {title, author, genre, year } = valores;
+          const result = await createBook({
+            title,
+            author,
+            year,
+            genre
+          });
+          console.log("Result", result);
+          resetForm();
+          setFormError(null);
+          setFormEnviado(true);
+          setTimeout(() => {
+            setFormEnviado(false);
+          }, 2000);
+        } catch (error) {
+          setFormError(error.message);
+        }
+      }}
+    >
+      {({ values, handleBlur }) => (
+        <Form className="flex w-full flex-col items-center px-6 md:px-2 lg:px-10  ">
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="title"
+              >
+                Título:
+              </label>
+              <Field
+                type="text"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="title"
+                name="title"
+                placeholder="Ingrese el título del libro"
+                value={values.title}
+                onBlur={handleBlur}
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="title"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="author"
+              >
+                Autor:
+              </label>
+              <Field
+                type="text"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="author"
+                name="author"
+                placeholder="Ingrese el título del libro"
+                value={values.author}
+                onBlur={handleBlur}
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="author"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="genre"
+              >
+                Género:
+              </label>
+              <Field
+                type="text"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="genre"
+                name="genre"
+                placeholder="Ingrese el título del libro"
+                value={values.genre}
+                onBlur={handleBlur}
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="genre"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full sm:w-[45%]">
+              <label
+                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                htmlFor="genre"
+              >
+                Año de publicación:
+              </label>
+              <Field
+                type="number"
+                className="w-full py-1 px-4 border border-gray rounded-lg "
+                id="year"
+                name="year"
+                placeholder="Ingrese el título del libro"
+                value={values.year}
+                onBlur={handleBlur}
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="year"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[70%] lg:w-[55%] flex items-center justify-center ">
+            <button
+              type="submit"
+              className="mt-1 sm:mt-4 mb-0 sm:mb-2 py-4 bg-avocadoGreen w-96 rounded-full text-white font-semibold text-base leading-6 "
+            >
+              Registrarse
+            </button>
+          </div>
+        <div className="w-full h-5 mt-1 sm:mt-0 sm:h-10 flex items-center justify-center ">
+        {formEnviado && (
+            <p className="flex justify-start text-green-500 text-sm ">
+              Registrado exitosamente! Email de confirmacion enviado!
+            </p>
+          )}
+          {formError && (
+            <p className="flex justify-start text-red-600 text-sm">
+              {formError}
+            </p>
+          )}
+        </div>
+          
+        </Form>
+      )}
+    </Formik>
+  );
 }
 
 export default CreateBookPage

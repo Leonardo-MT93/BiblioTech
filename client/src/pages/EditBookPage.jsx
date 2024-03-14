@@ -15,7 +15,6 @@ const EditBookPage = () => {
   });
 
   useEffect(() => {
-    // Buscar el libro en la lista de libros por id y establecer los datos en el estado formData
     const bookData = mybooks.find((book) => book.id === Number(id));
     if (bookData) {
       setFormData({

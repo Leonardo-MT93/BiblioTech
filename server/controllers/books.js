@@ -10,6 +10,18 @@ export const getBooks = async(req, res) => {
 
 }   
 
+// export const getMyBooks = async(req, res) => {
+//     try {
+//         const books = await Book.find();
+//         res.json({
+//         books
+//     })
+//     } catch (error) {
+//         console.log(error)
+//     }
+    
+// }
+
 export const getBookById = async(req, res) => {
     const {id} = req.params;
     const searchedBook = await Book.findById(id);

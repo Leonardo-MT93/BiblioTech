@@ -1,15 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const BookCard = ({
   title,
   genre,
   id,
   userId,
-  onDelete,
-  onEdit,
   bookUserId,
 }) => {
-  const isLoggedInUser = userId === bookUserId;
+  const options = userId === bookUserId;
+  const navigate = useNavigate();
+  const handleDelete = (id) => {
+    console.log("Deleting book with id", id);
+  };
+
+  const handleEdit = (id) => {
+    console.log("Editing book with id", id);
+    navigate(`/edit/${id}`);
+  };
   return (
     <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
@@ -41,17 +48,17 @@ const BookCard = ({
           />
         </svg>
       </Link>
-      {isLoggedInUser && (
+      {options && (
         <>
           <button
             className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 mx-1 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-            onClick={() => onDelete(id)}
+            onClick={() => handleDelete(id)}
           >
             Eliminar
           </button>
           <button
             className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
-            onClick={() => onEdit(id)}
+            onClick={() => handleEdit(id)}
           >
             Editar
           </button>
