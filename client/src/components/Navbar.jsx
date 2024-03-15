@@ -35,6 +35,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
 
+              
               {user && (
                 <>
                   <li>
@@ -63,23 +64,23 @@ const Navbar = () => {
                   Favoritos
                 </NavLink>
               </li>
-            </ul>
-            {!user && (
-              <>
+              <li>
                 <NavLink
-                  className="hidden md:flex items-center space-x-5 px-4"
+                  className="hover:border-b-2 hover:border-black md:text-sm lg:text-lg"
                   to="/login"
                 >
-                  <button>Iniciar Sesión</button>
+                  Iniciar Sesión
                 </NavLink>
+              </li>
+              <li>
                 <NavLink
-                  className="hidden md:flex items-center space-x-5 px-4"
+                  className="hover:border-b-2 hover:border-black md:text-sm lg:text-lg"
                   to="/register"
                 >
-                  <button>Registrarse</button>
+                  Registrarse
                 </NavLink>
-              </>
-            )}
+              </li>
+            </ul>
             {user && (
               <>
                 <div className="flex items-center">
