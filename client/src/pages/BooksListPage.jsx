@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
+import { AuthContext } from "../auth/context/AuthContext";
 // import { books } from "../constants/books";
 
 const BooksListPage = () => {
+  const {user} = useContext(AuthContext)
+  const {id} = user;
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const BooksListPage = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {books.map((book) => (
-        <BookCard key={book._id} genre={book.genre} title={book.title} id={book._id} bookUserId={book.created_by}/>
+        <BookCard key={book._id} genre={book.genre} title={book.title} id={book._id} bookUserId={book.created_by} userId={id}/>
       ))}
     </div>
   );

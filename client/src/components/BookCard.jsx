@@ -1,14 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
-const BookCard = ({
-  title,
-  genre,
-  id,
-  userId,
-  bookUserId,
-}) => {
+const BookCard = ({ title, genre, id, userId, bookUserId }) => {
   const options = userId === bookUserId;
   const navigate = useNavigate();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const {addFavorite, removeFavorite, getFavorites} = useFetch();
   const handleDelete = (id) => {
     console.log("Deleting book with id", id);
   };
@@ -16,8 +15,53 @@ const BookCard = ({
   const handleEdit = (id) => {
     navigate(`/edit/${id}`);
   };
+
+  const handleToggleFavorite = async() => {
+    try {
+      if (isFavorite) {
+        await removeFavorite(userId, id);
+      } else {
+        await addFavorite(userId, id);
+      }
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error('Error al agregar o quitar favorito:', error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const favorites = await getFavorites(userId);
+        setIsFavorite(favorites.includes(id));
+      } catch (error) {
+        console.error('Error al obtener favoritos:', error.message);
+      }
+    };
+  
+    if (userId && id) {
+      fetchFavorites();
+    }
+  }, []); 
+
   return (
-    <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="relative max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      {!options && (
+        <>
+          {isFavorite ? (
+            <FaHeart
+              className={`absolute top-4 right-4 w-6 h-6 text-red-500 cursor-pointer`}
+              onClick={handleToggleFavorite}
+            />
+          ) : (
+            <FaRegHeart
+              className={`absolute top-4 right-4 w-6 h-6 text-red-500 cursor-pointer`}
+              onClick={handleToggleFavorite}
+            />
+          )}
+        </>
+      )}
+
       <a href="#">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {title}

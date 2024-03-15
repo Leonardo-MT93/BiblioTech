@@ -37,7 +37,6 @@ const useFetch = () => {
           throw new Error("Error al obtener los libros");
         }
         const {books} = await response.json();
-        console.log(books)
         return books;
       } catch (error) {
         console.error("Error fetching books:", error);
@@ -83,11 +82,87 @@ const useFetch = () => {
       }
     }
     
+    const addFavorite = async (id, bookId) => {
+      try {
+        const response = await fetch(`http://localhost:9000/api/favorites/add/${id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-token': token
+          },
+          body: JSON.stringify({bookId})
+        })
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message || 'Algo salió mal al agregar el libro a favoritos');
+        }
+  
+        if (responseData.error) {
+          throw new Error(responseData.error);
+        }
+        return responseData;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    
+    }
+
+    const removeFavorite = async (id, bookId) => {
+
+      try {
+        const response = await fetch(`http://localhost:9000/api/favorites/remove/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-token': token
+          },
+          body: JSON.stringify({bookId})
+        })
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message || 'Algo salió mal al agregar el libro a favoritos');
+        }
+  
+        if (responseData.error) {
+          throw new Error(responseData.error);
+        }
+        return responseData;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+
+    }
+
+    const getFavorites = async (id) => {
+      console.log('PASE POR ACAa')
+      try {
+        const response = await fetch(`http://localhost:9000/api/favorites/list/${id}`,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-token': token
+          }
+        });
+        if (!response.ok) {
+          throw new Error("Error al obtener los libros favoritos");
+        }
+        const {favoritesBooks}= await response.json();
+        return favoritesBooks;
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    };
+
     return {
       createBook,
       getBooks,
       getBookForId,
-      updateBook
+      updateBook,
+      addFavorite,
+      removeFavorite,
+      getFavorites
     };
   }
   
