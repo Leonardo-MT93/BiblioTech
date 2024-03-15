@@ -14,7 +14,6 @@ export const idBookExists = async (id) => {
 
     const bookExist = await Book.findById(id);
     if (!bookExist) {
-        console.log(`El libro con ID ${id} no existe`);
         throw new Error(`El libro con ID ${id} no existe`);
     }
 }
