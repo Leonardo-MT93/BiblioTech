@@ -24,6 +24,7 @@ const MyBooksPage = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {myBooks.length === 0 && (<h1>No tienes libros creados</h1>)}
       {myBooks.map((book) => ( 
         <BookCard
           key={book._id}

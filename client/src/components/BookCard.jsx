@@ -7,9 +7,10 @@ const BookCard = ({ title, genre, id, userId, bookUserId }) => {
   const options = userId === bookUserId;
   const navigate = useNavigate();
   const [isFavorite, setIsFavorite] = useState(false);
-  const {addFavorite, removeFavorite, getFavorites} = useFetch();
+  const {addFavorite, removeFavorite, getFavorites, deleteBook} = useFetch();
   const handleDelete = (id) => {
-    console.log("Deleting book with id", id);
+    deleteBook(id);
+    navigate('/books');
   };
 
   const handleEdit = (id) => {
@@ -42,7 +43,7 @@ const BookCard = ({ title, genre, id, userId, bookUserId }) => {
     if (userId && id) {
       fetchFavorites();
     }
-  }, [isFavorite]); 
+  }, []); 
 
   return (
     <div className="relative max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

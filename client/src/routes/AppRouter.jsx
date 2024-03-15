@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomePage from "../pages/HomePage";
 import BooksListPage from "../pages/BooksListPage";
 import FavoritesPage from "../pages/FavoritesPage";
 import BookDetailPage from "../pages/BookDetailPage";
@@ -14,7 +13,7 @@ const AppRouter = () => {
     <Routes>
       <>
         {/* RUTAS PUBLICAS */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<BooksListPage />} />
         <Route path="/books" element={<BooksListPage />} />
         <Route path="/books/:id" element={<BookDetailPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />

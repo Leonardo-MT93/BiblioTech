@@ -1,22 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
 import { AuthContext } from "../auth/context/AuthContext";
-// import { books } from "../constants/books";
+import useFetch from "../hooks/useFetch";
 
 const BooksListPage = () => {
-  const {user} = useContext(AuthContext)
-  const {id} = user;
+  const {user} = useContext(AuthContext);
+  const {id} = user || {id: null};
   const [books, setBooks] = useState([]);
+  const {getBooks} = useFetch()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:9000/api/book');
-        if (!response.ok) {
-          throw new Error("Error al obtener los libros");
-        }
-        const {books} = await response.json();
-        setBooks(books);
+        const booksFromDB = await getBooks();
+        setBooks(booksFromDB);
       } catch (error) {
         console.error("Error fetching books:", error);
       }
@@ -25,10 +22,13 @@ const BooksListPage = () => {
     fetchData();
   }, []);
 
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {books.map((book) => (
-        <BookCard key={book._id} genre={book.genre} title={book.title} id={book._id} bookUserId={book.created_by} userId={id}/>
+        <BookCard key={book._id} genre={book.genre} title={book.title} id={book._id} bookUserId={book.created_by} 
+        userId={id}
+        />
       ))}
     </div>
   );

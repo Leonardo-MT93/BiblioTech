@@ -6,20 +6,19 @@ import useFetch from "../hooks/useFetch.js";
 
 const FavoritesPage = () => {
   const {user} = useContext(AuthContext);
-  const {id} = user;
+  const {id} = user || {id: null};
   const [books, setBooks] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
   const {getFavorites, getBookForId} = useFetch();
 
 
 
   useEffect(() => {
+    if (!id) return;
     const fetchFavorites = async () => {
       try {
         const favorites = await getFavorites(id);
         const favoritesBooks = await getBooksForIds(favorites);
         setBooks(favoritesBooks);
-        setIsFavorite(favorites.includes(id));
       } catch (error) {
         console.error('Error al obtener favoritos:', error.message);
       }
@@ -44,6 +43,8 @@ const FavoritesPage = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {user && books.length === 0 && (<h1>No tienes libros favoritos</h1>)}
+      {!user && (<h1>Debes iniciar sesión para ver tus libros favoritos</h1>)}
       {books.map((book) => ( 
         <BookCard
           key={book._id}

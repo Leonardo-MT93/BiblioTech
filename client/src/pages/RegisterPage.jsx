@@ -3,9 +3,7 @@ import { useState } from "react";
 import useRegister from "../hooks/useRegister";
 import { useNavigate } from "react-router-dom";
 
-
 const RegisterPage = () => {
-
   const [formEnviado, setFormEnviado] = useState(false);
   const [loginError, setLoginError] = useState(null);
   const { handleRegister } = useRegister();
@@ -40,9 +38,9 @@ const RegisterPage = () => {
         return errores;
       }}
       onSubmit={async (valores, { resetForm }) => {
-        console.log(valores)
+        console.log(valores);
         try {
-          const {name, email, password } = valores;
+          const { name, email, password } = valores;
           const result = await handleRegister({
             name,
             email,
@@ -54,7 +52,7 @@ const RegisterPage = () => {
           setFormEnviado(true);
           setTimeout(() => {
             setFormEnviado(false);
-            navigate('/');
+            navigate("/");
           }, 2000);
         } catch (error) {
           setLoginError(error.message);
@@ -62,103 +60,105 @@ const RegisterPage = () => {
       }}
     >
       {({ values, handleBlur }) => (
-        <Form className="flex w-[50%] flex-col items-center px-6 md:px-2 lg:px-10   border border-red-500">
-          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
-            <div className="flex flex-col w-full sm:w-[45%]">
+        <Form className="flex w-full flex-col items-center justify-center px-6 md:px-2 lg:px-10  ">
+          <div className="flex flex-col items-center justify-center w-[40%] ">
+            <h1 className="text-3xl font-bold text-center">Registro</h1>
+            <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+              <div className="flex flex-col w-full ">
+                <label
+                  className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
+                  htmlFor="name"
+                >
+                  Nombre:
+                </label>
+                <Field
+                  type="text"
+                  className="w-full py-1 px-4 border border-gray rounded-lg "
+                  id="name"
+                  name="name"
+                  placeholder="Ingrese su nombre"
+                  value={values.name}
+                  onBlur={handleBlur}
+                />
+                <div className="w-full h-5">
+                  <ErrorMessage
+                    className="flex justify-start text-red-600 text-sm"
+                    name="name"
+                    component="div"
+                  ></ErrorMessage>
+                </div>
+              </div>
+            </div>
+            <div className="flex w-[95%] flex-col">
               <label
-                className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
-                htmlFor="name"
+                className="w-full flex justify-start font-bold leading-6 text-lg lg:text-base md:text-sm "
+                htmlFor="email"
               >
-                Nombre:
+                Email:
               </label>
               <Field
-                type="text"
-                className="w-full py-1 px-4 border border-gray rounded-lg "
-                id="name"
-                name="name"
-                placeholder="Ingrese su nombre"
-                value={values.name}
+                type="email"
+                className="w-full    py-1 px-4 border border-gray rounded-lg"
+                id="email"
+                name="email"
+                placeholder="name@gmail.com"
+                value={values.email}
                 onBlur={handleBlur}
               />
               <div className="w-full h-5">
                 <ErrorMessage
                   className="flex justify-start text-red-600 text-sm"
-                  name="name"
+                  name="email"
                   component="div"
                 ></ErrorMessage>
               </div>
             </div>
-          </div>
-          <div className="flex w-[95%] flex-col">
-            <label
-              className="w-full flex justify-start font-bold leading-6 text-lg lg:text-base md:text-sm "
-              htmlFor="email"
-            >
-              Email:
-            </label>
-            <Field
-              type="email"
-              className="w-full    py-1 px-4 border border-gray rounded-lg"
-              id="email"
-              name="email"
-              placeholder="name@gmail.com"
-              value={values.email}
-              onBlur={handleBlur}
-            />
-            <div className="w-full h-5">
-              <ErrorMessage
-                className="flex justify-start text-red-600 text-sm"
-                name="email"
-                component="div"
-              ></ErrorMessage>
-            </div>
-          </div>
-          <div className="flex w-[95%] flex-col ">
-            <label
-              className="w-full flex justify-start font-bold leading-6 text-lg lg:text-base md:text-sm  "
-              htmlFor="password"
-            >
-              Contraseña:
-            </label>
-            <Field
-              type="password"
-              className="w-full   py-1 px-4 border border-gray rounded-lg "
-              id="password"
-              name="password"
-              placeholder="Ingrese su contraseña"
-              value={values.password}
-              onBlur={handleBlur}
-            />
-            <div className="w-full h-5">
-              <ErrorMessage
-                className="flex justify-start text-red-600 text-sm"
+            <div className="flex w-[95%] flex-col ">
+              <label
+                className="w-full flex justify-start font-bold leading-6 text-lg lg:text-base md:text-sm  "
+                htmlFor="password"
+              >
+                Contraseña:
+              </label>
+              <Field
+                type="password"
+                className="w-full   py-1 px-4 border border-gray rounded-lg "
+                id="password"
                 name="password"
-                component="div"
-              ></ErrorMessage>
+                placeholder="Ingrese su contraseña"
+                value={values.password}
+                onBlur={handleBlur}
+              />
+              <div className="w-full h-5">
+                <ErrorMessage
+                  className="flex justify-start text-red-600 text-sm"
+                  name="password"
+                  component="div"
+                ></ErrorMessage>
+              </div>
+            </div>
+
+            <div className="w-[70%] lg:w-[55%] flex items-center justify-center ">
+              <button
+                type="submit"
+                className="mt-1 sm:mt-4 mb-0 sm:mb-2 py-4 bg-blue-600 w-96 rounded-full text-white font-semibold text-base leading-6 "
+              >
+                Registrarse
+              </button>
+            </div>
+            <div className="w-full h-5 mt-1 sm:mt-0 sm:h-10 flex items-center justify-center ">
+              {formEnviado && (
+                <p className="flex justify-start text-green-500 text-sm ">
+                  Registrado exitosamente!
+                </p>
+              )}
+              {loginError && (
+                <p className="flex justify-start text-red-600 text-sm">
+                  {loginError}
+                </p>
+              )}
             </div>
           </div>
-
-          <div className="w-[70%] lg:w-[55%] flex items-center justify-center ">
-            <button
-              type="submit"
-              className="mt-1 sm:mt-4 mb-0 sm:mb-2 py-4 bg-blue-600 w-96 rounded-full text-white font-semibold text-base leading-6 "
-            >
-              Registrarse
-            </button>
-          </div>
-        <div className="w-full h-5 mt-1 sm:mt-0 sm:h-10 flex items-center justify-center ">
-        {formEnviado && (
-            <p className="flex justify-start text-green-500 text-sm ">
-              Registrado exitosamente! Email de confirmacion enviado!
-            </p>
-          )}
-          {loginError && (
-            <p className="flex justify-start text-red-600 text-sm">
-              {loginError}
-            </p>
-          )}
-        </div>
-          
         </Form>
       )}
     </Formik>
@@ -173,7 +173,6 @@ const RegisterPage = () => {
   //   const last_name = e.target.last_name.value;
   //   console.log(email, password, repeat_password, first_name, last_name)
   // }
-
 
   // return (
   //   <div className="shadow dark:bg-gray-800 dark:border-gray-700 rounded-md h-[50vh] flex flex-col items-center justify-around">

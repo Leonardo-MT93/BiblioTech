@@ -63,7 +63,7 @@ const EditBookPage = () => {
           setTimeout(() => {
             setFormEnviado(false);
             navigate("/")
-          }, 2000);
+          }, 1000);
         } catch (error) {
           setFormError(error.message);
         }
@@ -71,8 +71,10 @@ const EditBookPage = () => {
     >
       {({ values, handleBlur }) => (
         <Form className="flex w-full flex-col items-center px-6 md:px-2 lg:px-10  ">
-          <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
-            <div className="flex flex-col w-full sm:w-[45%]">
+          <div className="flex flex-col items-center justify-center w-[40%] ">
+            <h1 className="text-3xl font-bold text-center">Editar Libro</h1>
+            <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
+            <div className="flex flex-col w-full ">
               <label
                 className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
                 htmlFor="title"
@@ -100,7 +102,7 @@ const EditBookPage = () => {
           </div>
 
           <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
-            <div className="flex flex-col w-full sm:w-[45%]">
+            <div className="flex flex-col w-full ">
               <label
                 className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
                 htmlFor="author"
@@ -127,7 +129,7 @@ const EditBookPage = () => {
             </div>
           </div>
           <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
-            <div className="flex flex-col w-full sm:w-[45%]">
+            <div className="flex flex-col w-full ">
               <label
                 className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
                 htmlFor="genre"
@@ -154,7 +156,7 @@ const EditBookPage = () => {
             </div>
           </div>
           <div className="flex flex-col w-[95%] sm:flex-row justify-between ">
-            <div className="flex flex-col w-full sm:w-[45%]">
+            <div className="flex flex-col w-full ">
               <label
                 className="w-full flex justify-start text-lg lg:text-base md:text-sm  font-bold leading-6"
                 htmlFor="genre"
@@ -201,6 +203,8 @@ const EditBookPage = () => {
             </p>
           )}
         </div>
+          </div>
+
           
         </Form>
       )}

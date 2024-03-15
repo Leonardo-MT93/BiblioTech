@@ -17,7 +17,7 @@ const useFetch = () => {
 
         const responseData = await response.json();
         if (!response.ok) {
-          throw new Error(responseData.message || 'Credenciales inválidas');
+          throw new Error(responseData.message || 'Error en la respuesta');
         }
   
         if (responseData.error) {
@@ -70,7 +70,32 @@ const useFetch = () => {
         const responseData = await response.json();
         if (!response.ok) {
           console.log(response)
-          throw new Error(responseData.message || 'Credenciales inválidas');
+          throw new Error(responseData.message || 'Error en la respuesta');
+        }
+  
+        if (responseData.error) {
+          throw new Error(responseData.error);
+        }
+        return responseData;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    }
+
+    const deleteBook = async (id) => {
+      try {
+        const response = await fetch(`http://localhost:9000/api/book/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-token': token
+          }
+        })
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          console.log(response)
+          throw new Error(responseData.message || 'Error en la respuesta');
         }
   
         if (responseData.error) {
@@ -161,7 +186,8 @@ const useFetch = () => {
       updateBook,
       addFavorite,
       removeFavorite,
-      getFavorites
+      getFavorites,
+      deleteBook
     };
   }
   
