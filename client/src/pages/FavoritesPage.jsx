@@ -9,7 +9,7 @@ const FavoritesPage = () => {
   const {id} = user;
   const [books, setBooks] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
-  const {getFavorites} = useFetch();
+  const {getFavorites, getBookForId} = useFetch();
 
 
 
@@ -17,7 +17,8 @@ const FavoritesPage = () => {
     const fetchFavorites = async () => {
       try {
         const favorites = await getFavorites(id);
-        setBooks(favorites);
+        const favoritesBooks = await getBooksForIds(favorites);
+        setBooks(favoritesBooks);
         setIsFavorite(favorites.includes(id));
       } catch (error) {
         console.error('Error al obtener favoritos:', error.message);
@@ -26,7 +27,19 @@ const FavoritesPage = () => {
   
     fetchFavorites();
   }, []); 
-  console.log(books)
+
+  
+
+  const getBooksForIds = async (ids) => {
+    try {
+      const promises = ids.map(id => getBookForId(id));
+      const books = await Promise.all(promises);
+      return books.filter(book => book);
+    } catch (error) {
+      console.error("Error obteniendo libros por IDs:", error);
+      return [];
+    }
+  };
 
 
   return (

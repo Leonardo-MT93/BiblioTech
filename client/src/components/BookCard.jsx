@@ -42,7 +42,7 @@ const BookCard = ({ title, genre, id, userId, bookUserId }) => {
     if (userId && id) {
       fetchFavorites();
     }
-  }, []); 
+  }, [isFavorite]); 
 
   return (
     <div className="relative max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

@@ -136,7 +136,6 @@ const useFetch = () => {
     }
 
     const getFavorites = async (id) => {
-      console.log('PASE POR ACAa')
       try {
         const response = await fetch(`http://localhost:9000/api/favorites/list/${id}`,{
           method: 'GET',

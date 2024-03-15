@@ -46,8 +46,8 @@ export const deleteFavoriteBook = async(req, res) => {
     if(!bookId){
         return res.status(400).json({ message: 'Libro no encontrado' });
     }
-    if(user.favorites.includes(bookId)){
-        return res.status(400).json({ message: 'El libro ya se encuentra en favoritos' });
+    if(!user.favorites.includes(bookId)){
+        return res.status(400).json({ message: 'El libro no se encuentra en favoritos' });
     }
     user.favorites = user.favorites.filter(book => book != bookId);
     await user.save();
