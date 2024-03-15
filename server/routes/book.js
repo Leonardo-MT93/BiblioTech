@@ -14,10 +14,6 @@ BookRoutes.get('/', getBooks);
 BookRoutes.get('/:id', [
 ], getBookById)
 
-// BookRoutes.get('/:id', [
-//     validateJWT
-// ], getMyBooks);
-
 
 BookRoutes.post('/', [
     validateJWT,

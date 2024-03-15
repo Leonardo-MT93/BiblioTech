@@ -8,7 +8,7 @@ const UserRoutes = Router();
 
 UserRoutes.get('/', getAllUsers);
 
-UserRoutes.put('/:id', (req,res) => res.json({msg: 'Editar usuario API'}));
+// UserRoutes.put('/:id', (req,res) => res.json({msg: 'Editar usuario API'}));
 
 UserRoutes.post('/',[
     check('name', 'El nombre es obligatorio').not().isEmpty(),
@@ -18,7 +18,7 @@ UserRoutes.post('/',[
     validateFields
 ], usersPost);
 
-UserRoutes.delete('/:id', (req,res) => res.json({msg: 'Eliminar usuario API'}));
+// UserRoutes.delete('/:id', (req,res) => res.json({msg: 'Eliminar usuario API'}));
 
 
 
